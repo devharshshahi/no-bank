@@ -1,7 +1,6 @@
 package com.nobank.userservice.controller;
 
 import com.nobank.userservice.model.User;
-import com.nobank.userservice.repository.UserRepository;
 import com.nobank.userservice.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +27,23 @@ public class UserController {
 
     @GetMapping(value = "/{userId}")
     public User getUser(@PathVariable String userId){
+        //TODO: check user Exists or not
+
         return userServices.getUser(userId);
     }
 
     @PutMapping(value = "/{userId}")
     public User updateUser(@PathVariable String userId, @RequestBody User user){
+        //TODO: check User exists or not
+
         return userServices.updateUser(userId, user);
     }
 
     @DeleteMapping(value = "/{userId}")
     public User deleteUser(@PathVariable String userId){
+
+        //TODO: check user exists or not
+
         return userServices.deleteUser(userId);
     }
 
