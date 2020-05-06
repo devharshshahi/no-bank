@@ -3,6 +3,8 @@ package com.nobank.userservice.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document
 public class User {
 
@@ -12,17 +14,23 @@ public class User {
     private String email;
     private long aadhar_no;
     private long phone;
-    private long ac;
+    private Address address;
+    private Account account;
+    private List<History> history;
 
     public User(){}
 
-    public User(String id, String name, String email, long aadhar_no, long phone, long ac) {
+    public User(String id, String name, String email,
+                long aadhar_no, long phone, Address address,
+                Account account, List<History> history) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.aadhar_no = aadhar_no;
         this.phone = phone;
-        this.ac = ac;
+        this.address = address;
+        this.account = account;
+        this.history = history;
     }
 
     public String getId() {
@@ -61,12 +69,27 @@ public class User {
         this.phone = phone;
     }
 
-    public long getAc() {
-        return ac;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAc(long ac) {
-        this.ac = ac;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public List<History> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<History> history) {
+        this.history = history;
+    }
 }

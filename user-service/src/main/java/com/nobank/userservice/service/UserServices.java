@@ -1,5 +1,6 @@
 package com.nobank.userservice.service;
 
+import com.nobank.userservice.model.Account;
 import com.nobank.userservice.model.User;
 import com.nobank.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class UserServices {
     @Autowired
     private UserRepository userRepository;
 
-    public void createUser(User user){
-        userRepository.save(user);
+    public User createUser(User user){
+        return userRepository.save(user);
     }
 
     public List<User> getUsers(){

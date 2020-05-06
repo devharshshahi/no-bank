@@ -18,9 +18,7 @@ public class UserController {
     @PostMapping(value = "/")
     public User createUser(@RequestBody User user){
 
-        userServices.createUser(user);
-
-        return user;
+        return userServices.createUser(user);
     }
 
     @GetMapping(value = "/")
