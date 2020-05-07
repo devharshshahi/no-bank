@@ -12,6 +12,7 @@ public class User {
     private String id;
     private String name;
     private String email;
+    private String password;
     private long aadhar_no;
     private String imageUrl;
     private long phone;
@@ -24,11 +25,12 @@ public class User {
     public User(){}
 
     public User(String id, String name, String email, List<Product> productId,List<Product> forSale,
-                long aadhar_no, long phone, Address address, String imageUrl,
+                long aadhar_no, long phone, Address address, String imageUrl, String password,
                 Account account, List<History> history) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.password = password;
         this.productId = productId;
         this.aadhar_no = aadhar_no;
         this.phone = phone;
@@ -44,6 +46,14 @@ public class User {
 
     public void setForSale(List<Product> forSale) {
         this.forSale = forSale;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getId() {
