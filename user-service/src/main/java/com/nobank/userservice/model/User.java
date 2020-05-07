@@ -17,12 +17,13 @@ public class User {
     private long phone;
     private Address address;
     private Account account;
-    private List<String> productId;
+    private List<Product> forSale;
+    private List<Product> productId;
     private List<History> history;
 
     public User(){}
 
-    public User(String id, String name, String email, List<String> productId,
+    public User(String id, String name, String email, List<Product> productId,List<Product> forSale,
                 long aadhar_no, long phone, Address address, String imageUrl,
                 Account account, List<History> history) {
         this.id = id;
@@ -35,6 +36,14 @@ public class User {
         this.imageUrl = imageUrl;
         this.account = account;
         this.history = history;
+    }
+
+    public List<Product> getForSale() {
+        return forSale;
+    }
+
+    public void setForSale(List<Product> forSale) {
+        this.forSale = forSale;
     }
 
     public String getId() {
@@ -97,11 +106,11 @@ public class User {
         this.history = history;
     }
 
-    public List<String> getProductId() {
+    public List<Product> getProductId() {
         return productId;
     }
 
-    public void setProductId(List<String> productId) {
+    public void setProductId(List<Product> productId) {
         this.productId = productId;
     }
 
