@@ -13,22 +13,26 @@ public class User {
     private String name;
     private String email;
     private long aadhar_no;
+    private String imageUrl;
     private long phone;
     private Address address;
     private Account account;
+    private List<String> productId;
     private List<History> history;
 
     public User(){}
 
-    public User(String id, String name, String email,
-                long aadhar_no, long phone, Address address,
+    public User(String id, String name, String email, List<String> productId,
+                long aadhar_no, long phone, Address address, String imageUrl,
                 Account account, List<History> history) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.productId = productId;
         this.aadhar_no = aadhar_no;
         this.phone = phone;
         this.address = address;
+        this.imageUrl = imageUrl;
         this.account = account;
         this.history = history;
     }
@@ -91,5 +95,21 @@ public class User {
 
     public void setHistory(List<History> history) {
         this.history = history;
+    }
+
+    public List<String> getProductId() {
+        return productId;
+    }
+
+    public void setProductId(List<String> productId) {
+        this.productId = productId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
