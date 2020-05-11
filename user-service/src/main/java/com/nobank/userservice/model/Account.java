@@ -3,15 +3,18 @@ package com.nobank.userservice.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
 public class Account {
 
-    static enum Type {
+    public enum Type {
         Saving, Current
     }
     private long ac_no=System.currentTimeMillis();
+
+    @NotNull
     private Type type;
 
     public Account(){}

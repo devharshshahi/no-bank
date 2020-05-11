@@ -3,6 +3,8 @@ package com.nobank.userservice.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Document
@@ -10,34 +12,56 @@ public class User {
 
     @Id
     private String id;
+
     private String name;
+
     private String email;
+
     private String password;
+
+    private List<String> roles;
+
+    private List<String> permissions;
+
     private long aadhar_no;
+
     private String imageUrl;
+
+    @Digits(integer = 10, message = "must contain 10 digits", fraction = 0)
     private long phone;
+
+    @NotNull
     private Address address;
+
+    @NotNull
     private Account account;
+
+    private int active;
+
+
     private List<Product> forSale;
-    private List<Product> productId;
+    private List<Product> products;
     private List<History> history;
 
     public User(){}
 
-    public User(String id, String name, String email, List<Product> productId,List<Product> forSale,
+    public User(String name, String email, List<Product> products,List<Product> forSale,
                 long aadhar_no, long phone, Address address, String imageUrl, String password,
-                Account account, List<History> history) {
-        this.id = id;
+                Account account, List<History> history, List<String> roles,List<String> permissions, int active) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.productId = productId;
+        this.forSale = forSale;
+        this.products = products;
         this.aadhar_no = aadhar_no;
         this.phone = phone;
         this.address = address;
+        this.roles = roles;
         this.imageUrl = imageUrl;
         this.account = account;
         this.history = history;
+        this.active = active;
+        this.permissions = permissions;
     }
 
     public List<Product> getForSale() {
@@ -116,19 +140,64 @@ public class User {
         this.history = history;
     }
 
-    public List<Product> getProductId() {
-        return productId;
-    }
-
-    public void setProductId(List<Product> productId) {
-        this.productId = productId;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public List<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                ", permissions=" + permissions +
+                ", aadhar_no=" + aadhar_no +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", phone=" + phone +
+                ", address=" + address +
+                ", account=" + account +
+                ", active=" + active +
+                ", forSale=" + forSale +
+                ", products=" + products +
+                ", history=" + history +
+                '}';
     }
 }

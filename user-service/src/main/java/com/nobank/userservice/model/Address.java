@@ -1,18 +1,31 @@
 package com.nobank.userservice.model;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+
 public class Address {
 
-    String locality;
-    String city;
-    String state;
-    int pin;
-    String country;
+    @NotNull
+    private String address;
+
+    @NotNull
+    private String city;
+
+    @NotNull
+    private String state;
+
+    @NotNull
+    @Digits(integer = 6, fraction = 0, message = "must have 6 digits")
+    private int pin;
+
+    @NotNull
+    private String country;
 
     public Address() {
     }
 
-    public Address(String locality, String city, String state, int pin, String country) {
-        this.locality = locality;
+    public Address(String address, String city, String state, int pin, String country) {
+        this.address = address;
         this.city = city;
         this.state = state;
         this.pin = pin;
@@ -20,11 +33,11 @@ public class Address {
     }
 
     public String getLocality() {
-        return locality;
+        return address;
     }
 
-    public void setLocality(String locality) {
-        this.locality = locality;
+    public void setLocality(String address) {
+        this.address = address;
     }
 
     public String getCity() {

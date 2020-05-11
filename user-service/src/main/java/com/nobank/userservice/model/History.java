@@ -1,5 +1,6 @@
 package com.nobank.userservice.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class History {
@@ -8,17 +9,24 @@ public class History {
         Debit, Credit
     }
 
-    Date date;
-    double funds;
-    User user;
-    TransferType type;
+    @NotNull
+    private Date date;
+
+    @NotNull
+    private double funds;
+
+    @NotNull
+    private String otherUser;
+
+    @NotNull
+    private TransferType type;
 
     public History(){}
 
-    public History(Date date, double funds, User user, TransferType type) {
+    public History(Date date, double funds, String otherUser, TransferType type) {
         this.date = date;
         this.funds = funds;
-        this.user = user;
+        this.otherUser = otherUser;
         this.type = type;
     }
 
@@ -38,12 +46,12 @@ public class History {
         this.funds = funds;
     }
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+        return otherUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String otherUser) {
+        this.otherUser = otherUser;
     }
 
     public TransferType getType() {

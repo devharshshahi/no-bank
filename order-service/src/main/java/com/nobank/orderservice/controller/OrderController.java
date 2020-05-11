@@ -1,13 +1,11 @@
 package com.nobank.orderservice.controller;
 
 
+import com.nobank.orderservice.model.Bill;
 import com.nobank.orderservice.model.Order;
 import com.nobank.orderservice.model.Product;
-import com.nobank.orderservice.proxy.ProductProxy;
 import com.nobank.orderservice.service.OrderServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -38,11 +36,22 @@ public class OrderController {
         ResponseEntity<Product> responseEntity = new RestTemplate()
                 .getForEntity("http://localhost:8200/products/{productId}/from/{holder}/quantity/{quantity}", Product.class, uriVarable);
 
+
         Product product = responseEntity.getBody();
 
-        if(product!=null){
+        // Get Bill
+        uriVarable = new HashMap<>();
+        uriVarable.put("productId", productId);
+        uriVarable.put("userId", userId);
+
+        ResponseEntity<Bill> responseEntity1 = new RestTemplate()
+                .getForEntity("http://localhost:8500/products/{productId}/user/{userId}", Bill.class, uriVarable);
+
+        Bill bill = responseEntity1.getBody();
+
+        if(product!=null || bill != null){
             product.setHolder(holder);
-            return orderServices.placeOrder(product, userId, quantity);
+            return orderServices.placeOrder(product, userId, quantity, bill);
         }
         return null;
     }

@@ -18,13 +18,10 @@ public class OrderServices {
     @Autowired
     private OrderRepository orderRepository;
 
-    public Order placeOrder(Product product,String userId, int quantity){
+    public Order placeOrder(Product product,String userId, int quantity, Bill bill){
         Order order = new Order();
         order.setProduct(product);
         order.setUserId(userId);
-        Bill bill = new Bill();
-        //TODO: generate bill in fee service
-
         order.setBill(bill);
         order.setQuantity(quantity);
 

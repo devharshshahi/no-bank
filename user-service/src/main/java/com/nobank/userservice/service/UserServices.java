@@ -29,9 +29,8 @@ public class UserServices {
         return user.get();
     }
 
-    public User updateUser(String id, User user){
-        Optional<User> newUser = userRepository.findById(id);
-        User userdata = newUser.get();
+    public User updateUser(String email, User user){
+        User userdata = userRepository.findByEmail(email);
 
         userdata.setAadhar_no(user.getAadhar_no());
         userdata.setEmail(user.getEmail());
@@ -48,4 +47,10 @@ public class UserServices {
 
         return user.get();
     }
+
+    public User getUserByEmail(String email){
+        User user = userRepository.findByEmail(email);
+        return user;
+    }
+
 }

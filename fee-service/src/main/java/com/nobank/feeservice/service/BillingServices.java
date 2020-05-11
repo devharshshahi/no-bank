@@ -11,14 +11,14 @@ public class BillingServices {
     @Autowired
     private BillRepository billRepository;
 
-    public Bill getBill(String productId){
-        return billRepository.findByProductIdAndUserIdIsNull(productId);
-    }
-
     public Bill getBill(String productId, String userId){
 
         return billRepository.findByProductIdAndUserId(productId, userId);
 
+    }
+
+    public Bill postBill(Bill bill){
+        return billRepository.save(bill);
     }
 
     public Bill updateBill(String productId, String userId, Bill newBill){

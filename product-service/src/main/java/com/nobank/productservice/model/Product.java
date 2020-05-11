@@ -17,7 +17,6 @@ public class Product {
     private int total;
     private int available;
 
-
     public Product(){}
 
     public Product(String id, String name, String imageUrl, List<Holder> holders, int total, int available) {

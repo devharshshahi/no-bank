@@ -1,50 +1,52 @@
 package com.nobank.userservice.controller;
 
+import com.nobank.userservice.model.Product;
 import com.nobank.userservice.model.User;
+import com.nobank.userservice.service.ProductServices;
 import com.nobank.userservice.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
-@RestController
-@RequestMapping(value = "/users")
+@Controller
 public class UserController {
 
     @Autowired
     private UserServices userServices;
 
-    @PostMapping(value = "/")
-    public User createUser(@RequestBody User user){
+    @Autowired
+    private ProductServices productServices;
 
-        return userServices.createUser(user);
+
+    @GetMapping("login")
+    public String loginPage(){
+        return "login";
     }
 
-    @GetMapping(value = "/")
-    public List<User> getUsers(){
-        return userServices.getUsers();
+    @GetMapping("/")
+    public String homePage(Model model){
+
+        List<Product> products=(List<Product>) productServices.getProducts();
+        Map<String, Object> map = new HashMap<>();
+
+
+        map.put("HOME", "active");
+        map.put("USER_DETAILS", userServices.getUserByEmail("kamal@gmail.com"));
+        map.put("products", products);
+        map.put("MODE","DASHBOARD");
+        model.addAllAttributes(map);
+
+        return "index";
     }
 
-    @GetMapping(value = "/{userId}")
-    public User getUser(@PathVariable String userId){
-        //TODO: check user Exists or not
-
-        return userServices.getUser(userId);
+    @GetMapping("/product/{productId}")
+    public String getProduct(@PathVariable String productId, Model model){
+        Product product;
+        return "index";
     }
 
-    @PutMapping(value = "/{userId}")
-    public User updateUser(@PathVariable String userId, @RequestBody User user){
-        //TODO: check User exists or not
-
-        return userServices.updateUser(userId, user);
-    }
-
-    @DeleteMapping(value = "/{userId}")
-    public User deleteUser(@PathVariable String userId){
-
-        //TODO: check user exists or not
-
-        return userServices.deleteUser(userId);
-    }
 
 }

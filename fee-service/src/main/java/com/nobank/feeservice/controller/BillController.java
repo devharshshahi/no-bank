@@ -12,27 +12,19 @@ public class BillController {
     @Autowired
     private BillingServices billingServices;
 
-    @GetMapping(value = "/product/{productId}")
-    public Bill getBill(@PathVariable String productId){
-
-        //TODO: find if product exists or not
-
-        return billingServices.getBill(productId);
-    }
 
     @GetMapping(value = "/product/{productId}/user/{userId}")
     public Bill getBill(@PathVariable String productId, @PathVariable String userId){
-        // TODO: find user exists or not and user has product or not
-
-
         return billingServices.getBill(productId, userId);
+    }
+
+    @PostMapping(value = "/fee")
+    public Bill createBill(@RequestBody Bill bill){
+        return billingServices.postBill(bill);
     }
 
     @PutMapping(value = "/product/{productId}/user/{userId}")
     public Bill updateBill(@PathVariable String productId, @PathVariable String userId, @RequestBody Bill bill){
-
-        //TODO: find user exists or not and user has this product or not
-
         return billingServices.updateBill(productId, userId, bill);
     }
 

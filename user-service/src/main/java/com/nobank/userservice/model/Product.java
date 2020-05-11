@@ -1,9 +1,16 @@
 package com.nobank.userservice.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Product {
 
+    @NotNull
     private String productId;
+
+    @NotNull
     private String Bill;
+
+    @NotNull
     private int quantity;
 
     public Product(){}
