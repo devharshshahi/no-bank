@@ -29,13 +29,12 @@ public class UserController {
     @GetMapping("/")
     public String homePage(Model model){
 
-        List<Product> products=(List<Product>) productServices.getProducts();
+//        List<Product> products=(List<Product>) productServices.getProducts();
         Map<String, Object> map = new HashMap<>();
 
-
         map.put("HOME", "active");
-        map.put("USER_DETAILS", userServices.getUserByEmail("kamal@gmail.com"));
-        map.put("products", products);
+        map.put("user", userServices.getUserByEmail("kamal@gmail.com"));
+//        map.put("products", products);
         map.put("MODE","DASHBOARD");
         model.addAllAttributes(map);
 
