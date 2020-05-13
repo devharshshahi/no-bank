@@ -1,13 +1,15 @@
 package com.nobank.userservice.service;
 
-import com.nobank.userservice.model.Account;
-import com.nobank.userservice.model.User;
-import com.nobank.userservice.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.nobank.userservice.model.History;
+import com.nobank.userservice.model.User;
+import com.nobank.userservice.repository.UserRepository;
 
 @Service
 public class UserServices {
@@ -51,6 +53,29 @@ public class UserServices {
     public User getUserByEmail(String email){
         User user = userRepository.findByEmail(email);
         return user;
+    }
+
+    public List<History> getNewTranscation(String email){
+
+        User user = userRepository.findByEmail(email);
+
+        List<History> history = user.getHistory();
+        List<History> newTransiction = new ArrayList<>();
+            for (History h : history) {
+                if (!h.isStatus()) {
+                    newTransiction.add(h);
+                }
+            }
+        return newTransiction;
+    }
+
+    public List<History> getHistory(String email){
+        
+        User user = userRepository.findByEmail(email);
+        
+        List<History> history = user.getHistory();
+        
+        return history;
     }
 
 }

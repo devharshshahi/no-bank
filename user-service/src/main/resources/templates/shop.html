@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/dashboard-fragments :: link">
+<meta charset="UTF-8">
+<title></title>
+
+</head>
+<body class="">
+	<div class="wrapper ">
+  	<div th:replace="fragments/elements :: sidebar (name= ${name} , cls = ${MODE})">
+  	</div>
+    <div class="main-panel" style="height: 100vh;">
+      <!-- Navbar -->
+      <div th:replace="fragments/elements :: navigation (name = ${name})"></div>
+      <!-- End Navbar -->
+        <div class="content">
+	        <div class="row" th:each="product : ${products}">
+	          <div class="col-lg-6 col-md-12 col-sm-12">
+	            <div class="card card-stats">
+	              <div class="card-body ">
+	                <div class="row">
+	                  <div class="col-5 col-md-4">
+	                    <div class="icon-big text-center icon-warning">
+	                      <img src="" alt="">
+	                    </div>
+	                  </div>
+	                  <div class="col-7 col-md-8">
+	                    <div class="numbers">
+	                      <p class="card-category" th:text="${product.name}"></p>
+	                      <p class="card-title"><p>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="card-footer ">
+	                <hr>
+	                <div class="stats">
+	                  <i class="fa fa-refresh"></i>
+	                  Update Now
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>    
+      </div>
+    <!--  Footer-->
+      <div th:replace="fragments/elements :: footer"></div>
+    </div>
+  </div>
+  <div th:replace="fragments/dashboard-fragments :: script"></div>
+</body>
+</html>

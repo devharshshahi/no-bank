@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServices {
+	
+	private final String localURL="http://localhost:8200";
+	private final String webURL="";
 
 
     public Collection<Product> getProducts(){
@@ -25,7 +28,7 @@ public class ProductServices {
 
 
         ResponseEntity<CollectionModel<Product>> responseEntity = new RestTemplate()
-                .exchange("http://localhost:8200/products", HttpMethod.GET, null, ptr);
+                .exchange(localURL+"/products", HttpMethod.GET, null, ptr);
 
         if(responseEntity.getStatusCodeValue()==200)
             return responseEntity.getBody().getContent()
@@ -42,7 +45,7 @@ public class ProductServices {
         pathVarmap.put("productId", productId);
 
         ResponseEntity<Product> responseEntity = new RestTemplate()
-                .getForEntity("http://localhost:8200/products/{productId}", Product.class, pathVarmap);
+                .getForEntity(localURL+"/products/{productId}", Product.class, pathVarmap);
 
         if(responseEntity.getStatusCodeValue() == 200)
             return responseEntity.getBody();

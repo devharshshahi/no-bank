@@ -1,40 +1,40 @@
 package com.nobank.userservice.model;
 
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 public class History {
 
-    static enum TransferType{
+    public enum TransferType{
         Debit, Credit
     }
 
-    @NotNull
-    private Date date;
+    private LocalDateTime date;
 
-    @NotNull
     private double funds;
 
-    @NotNull
     private String otherUser;
 
-    @NotNull
     private TransferType type;
+
+    private boolean status;
+
 
     public History(){}
 
-    public History(Date date, double funds, String otherUser, TransferType type) {
+    public History(LocalDateTime date, double funds, String otherUser, TransferType type) {
         this.date = date;
         this.funds = funds;
         this.otherUser = otherUser;
         this.type = type;
+        this.status = false;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -61,4 +61,28 @@ public class History {
     public void setType(TransferType type) {
         this.type = type;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getOtherUser() {
+        return otherUser;
+    }
+
+    public void setOtherUser(String otherUser) {
+        this.otherUser = otherUser;
+    }
+
+	@Override
+	public String toString() {
+		return "History [date=" + date + ", funds=" + funds + ", otherUser=" + otherUser + ", type=" + type
+				+ ", status=" + status + "]";
+	}
+    
+    
 }

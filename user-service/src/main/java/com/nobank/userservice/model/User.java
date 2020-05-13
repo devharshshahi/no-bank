@@ -1,11 +1,9 @@
 package com.nobank.userservice.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Document
 public class User {
@@ -27,27 +25,23 @@ public class User {
 
     private String imageUrl;
 
-    @Digits(integer = 10, message = "must contain 10 digits", fraction = 0)
+    
     private long phone;
 
-    @NotNull
     private Address address;
 
-    @NotNull
     private Account account;
 
-    private int active;
+    private int active = 1;
 
 
-    private List<Product> forSale;
-    private List<Product> products;
+    private	List<String> forSale;
+    private List<String> products;
     private List<History> history;
-
-    public User(){}
-
-    public User(String name, String email, List<Product> products,List<Product> forSale,
+ 
+    public User(String name, String email, List<String> products,List<String> forSale,
                 long aadhar_no, long phone, Address address, String imageUrl, String password,
-                Account account, List<History> history, List<String> roles,List<String> permissions, int active) {
+                Account account, List<History> history, List<String> roles,List<String> permissions) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -60,15 +54,20 @@ public class User {
         this.imageUrl = imageUrl;
         this.account = account;
         this.history = history;
-        this.active = active;
         this.permissions = permissions;
     }
 
-    public List<Product> getForSale() {
+    
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public List<String> getForSale() {
         return forSale;
     }
 
-    public void setForSale(List<Product> forSale) {
+    public void setForSale(List<String> forSale) {
         this.forSale = forSale;
     }
 
@@ -156,11 +155,11 @@ public class User {
         this.roles = roles;
     }
 
-    public List<Product> getProducts() {
+    public List<String> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<String> products) {
         this.products = products;
     }
 
@@ -192,8 +191,8 @@ public class User {
                 ", aadhar_no=" + aadhar_no +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", phone=" + phone +
-                ", address=" + address +
-                ", account=" + account +
+                ", address=" + address.toString() +
+                ", account=" + account.toString() +
                 ", active=" + active +
                 ", forSale=" + forSale +
                 ", products=" + products +

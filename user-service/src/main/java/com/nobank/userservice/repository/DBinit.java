@@ -1,60 +1,117 @@
 package com.nobank.userservice.repository;
 
-import com.nobank.userservice.model.Account;
-import com.nobank.userservice.model.Address;
-import com.nobank.userservice.model.User;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.nobank.userservice.model.Account;
+import com.nobank.userservice.model.Address;
+import com.nobank.userservice.model.History;
+import com.nobank.userservice.model.Product;
+import com.nobank.userservice.model.User;
+import com.nobank.userservice.service.ProductServices;
 
 @Service
 public class DBinit implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-
-    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private ProductServices productServices;
 
     @Override
     public void run(String... args) throws Exception {
 
         userRepository.deleteAll();
 
-
+        List<String> p = new ArrayList<>();
+        List<History> h =new ArrayList<>(); 
 
         List<String> roles = new ArrayList<>();
         roles.add("user");
         User user = new User("Kamal",
                 "kamal@gmail.com",
-                null,
-                null,
+                p,
+                p,
                 Long.parseLong("123456789098"),
                 Long.parseLong("9876567656"),
-                new Address("premnager","Dehradun", "Uttrakhand",248001, "India"),
+                new Address("premnager", "Dehradun", 248001, "India"),
                 "image",
                 new BCryptPasswordEncoder().encode("password"),
-                new Account(Account.Type.Saving),
-                null,roles,
-                null,
-                1);
+                new Account(Account.Type.Saving, 20000.00),
+                h,
+                roles,
+                p);
         userRepository.save(user);
-        User user1 = new User("Harsh", "harsh@gmail.com", null, null, Long.parseLong("123450000098"),
-                Long.parseLong("9800067656"),new Address("premnager","Dehradun", "Uttrakhand",248001, "India"),
-                "image",new BCryptPasswordEncoder().encode("password"),new Account(Account.Type.Saving),null,roles,null,1);
+        User user1 = new User("Harsh",
+                "harsh@gmail.com",
+                p, p,
+                Long.parseLong("123450000098"),
+                Long.parseLong("9800067656"),
+                new Address("premnager","Dehradun",248001, "India"),
+                "image",
+                new BCryptPasswordEncoder().encode("password"),
+                new Account(Account.Type.Saving, 20000.00),
+                h,
+                roles,
+                p);
         userRepository.save(user1);
-        User user2 = new User("Akash", "akash.@gmail.com", null, null, Long.parseLong("123411119098"),
-                Long.parseLong("9876111656"),new Address("premnager","Dehradun", "Uttrakhand",248001, "India"),
-                "image",new BCryptPasswordEncoder().encode("password"),new Account(Account.Type.Saving),null,roles,null,1);
+        User user2 = new User("Akash",
+                "akash.@gmail.com",
+                p, p, Long.parseLong("123411119098"),
+                Long.parseLong("9876111656"),
+                new Address("premnager","Dehradun",248001, "India"),
+                "image",
+                new BCryptPasswordEncoder().encode("password"),
+                new Account(Account.Type.Saving,20000.00),
+                h,
+                roles,
+                p);
         userRepository.save(user2);
 
         User user3 = userRepository.findByEmail("kamal@gmail.com");
-
-        System.out.println(user3.getPassword());
+          
+        LocalDateTime now = LocalDateTime.now();
+        
+        History h1 = new History( now, 2000.00, "akash@gmail.com", History.TransferType.Credit );
+        h.add(h1);
+        h1 = new History( now, 2000.00, "harsh@gmail.com", History.TransferType.Debit );
+        h.add(h1);
+        h1 = new History( now, 1000.00, "harsh@gmail.com", History.TransferType.Credit );
+        h.add(h1);
+        h1 = new History( now, 2000.00, "akash@gmail.com", History.TransferType.Debit );
+        h.add(h1);
+        h1 = new History( now, 2000.00, "akash@gmail.com", History.TransferType.Credit );
+        h.add(h1);
+        h1 = new History( now, 3000.00, "harsh@gmail.com", History.TransferType.Debit );
+        h.add(h1);
+        h1 = new History( now, 2000.00, "harsh@gmail.com", History.TransferType.Debit );
+        h.add(h1);
+        h1 = new History( now, 4000.00, "akash@gmail.com", History.TransferType.Credit );
+        h.add(h1);
+        h1 = new History( now, 5000.00, "harsh@gmail.com", History.TransferType.Credit );
+        h.add(h1);
+        h1 = new History( now, 6000.00, "harsh@gmail.com", History.TransferType.Debit );
+        h.add(h1);
+        
+        user3.setHistory(h);
+        userRepository.save(user3);
+        System.out.println(user2.toString());
+        System.out.println(user1.toString());
         System.out.println(user3.toString());
+        
+        List<Product> products = (List<Product>) productServices.getProducts();
+        
+        System.out.println(products.size());
+        for(Product b : products) {
+        	System.out.println(b.toString());
+        }
     }
 }

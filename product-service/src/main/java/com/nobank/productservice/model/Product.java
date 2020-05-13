@@ -19,8 +19,7 @@ public class Product {
 
     public Product(){}
 
-    public Product(String id, String name, String imageUrl, List<Holder> holders, int total, int available) {
-        this.id = id;
+    public Product(String name, String imageUrl, List<Holder> holders, int total, int available) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.holders = holders;

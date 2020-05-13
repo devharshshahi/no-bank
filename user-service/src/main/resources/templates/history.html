@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/dashboard-fragments :: link">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="">
+	<div class="wrapper ">
+  		<div th:replace="fragments/elements :: sidebar (name= ${name} , cls = ${MODE})">
+  		</div>
+    	<div class="main-panel" style="height: 100vh;">
+	      	<!-- Navbar -->
+	      	<div th:replace="fragments/elements :: navigation (name = ${name})"></div>
+	      	<!-- End Navbar -->
+	      	<div class="content">
+	      		<div class="row">
+	      			<div class="col-md-12">
+			            <div class="card">
+			              <div class="card-header">
+			                <h4 class="card-title">History of Transaction</h4>
+			                <p class="card-category"></p>
+			              </div>
+			              <div class="card-body">
+			                <div class="table-responsive">
+			                  <table class="table">
+			                    <thead class=" text-primary">
+			                      <th>
+			                        Action
+			                      </th>
+			                      <th>
+			                        By/To
+			                      </th>
+			                      <th>
+			                        Time
+			                      </th>
+			                      <th class="text-right">
+			                        Amount
+			                      </th>
+			                    </thead>
+			                    <tbody th:each="history : ${history}">
+			                      <tr>
+			                        <td th:text="${history.type}">
+			                        </td>
+			                        <td th:text="${history.otherUser}">
+			                        </td>
+			                        <td th:text="${history.date}">
+			                        </td>
+			                        <td class="text-right" th:text="${history.funds}">
+			                        </td>
+			                      </tr>
+			                    </tbody>
+			                  </table>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+	      		</div> 	
+	      	</div>
+	      	<div th:replace="fragments/elements :: footer"></div>
+	    </div>
+	</div>
+	
+	<div th:replace="fragments/dashboard-fragments :: script"></div>
+
+</body>
+</html>
